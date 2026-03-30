@@ -1,0 +1,37 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <h2>Bank Client Manager</h2>
+      <p>Pensando no seu futuro</p>
+    </div>
+
+    <nav class="menu">
+      <p-button
+        label="Consulta"
+        icon="pi pi-list"
+        [text]="true"
+        (onClick)="showQuery()"
+        [styleClass]="activeScreen === 'query' ? 'nav-btn active-screen' : 'nav-btn'"
+      ></p-button>
+      <p-button
+        label="Novo cliente"
+        icon="pi pi-user-plus"
+        [text]="true"
+        (onClick)="showManagement()"
+        [styleClass]="activeScreen === 'management' ? 'nav-btn active-screen' : 'nav-btn'"
+      ></p-button>
+      <p-button
+        label="Sair"
+        icon="pi pi-sign-out"
+        severity="danger"
+        [text]="true"
+        (onClick)="logout()"
+        styleClass="nav-btn logout-btn"
+      ></p-button>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <ng-container #dynamicHost></ng-container>
+  </main>
+</div>

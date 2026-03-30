@@ -1,0 +1,78 @@
+<div class="login-page">
+  <p-toast></p-toast>
+
+  <p-card class="login-card">
+    <ng-template pTemplate="header">
+      <div class="login-header">
+        <h1>Bank Client Manager</h1>
+        <p>Pensando no seu futuro</p>
+      </div>
+    </ng-template>
+
+    <p-tabs [(value)]="activeTab">
+      <p-tablist>
+        <p-tab value="login">Login</p-tab>
+        <p-tab value="signup">Sign Up</p-tab>
+      </p-tablist>
+
+      <p-tabpanels>
+        <p-tabpanel value="login">
+          <form [formGroup]="loginForm" (ngSubmit)="submit()" class="auth-form">
+            <div class="form-field">
+              <label for="login-email">E-mail</label>
+              <input pInputText id="login-email" type="email" formControlName="username"
+                     placeholder="seu@email.com" />
+              <small class="error-msg" *ngIf="hasError('username', 'required', false)">E-mail é obrigatório.</small>
+              <small class="error-msg" *ngIf="hasError('username', 'email', false)">E-mail inválido.</small>
+            </div>
+
+            <div class="form-field">
+              <label for="login-password">Senha</label>
+              <p-password inputId="login-password" formControlName="password"
+                          [feedback]="false" [toggleMask]="true" />
+              <small class="error-msg" *ngIf="hasError('password', 'required', false)">Senha é obrigatória.</small>
+              <small class="error-msg" *ngIf="hasError('password', 'minlength', false)">Mínimo 6 caracteres.</small>
+            </div>
+
+            <small class="error-msg" *ngIf="invalidCredentials && errorMessage">{{ errorMessage }}</small>
+
+            <p-button type="submit" [label]="isLoading ? 'Entrando...' : 'Entrar'"
+                      [loading]="isLoading" styleClass="w-full"></p-button>
+          </form>
+        </p-tabpanel>
+
+        <p-tabpanel value="signup">
+          <form [formGroup]="signUpForm" (ngSubmit)="signUp()" class="auth-form">
+            <div class="form-field">
+              <label for="signup-email">E-mail</label>
+              <input pInputText id="signup-email" type="email" formControlName="username"
+                     placeholder="seu@email.com" />
+              <small class="error-msg" *ngIf="hasError('username', 'required', true)">E-mail é obrigatório.</small>
+              <small class="error-msg" *ngIf="hasError('username', 'email', true)">E-mail inválido.</small>
+            </div>
+
+            <div class="form-field">
+              <label for="signup-password">Senha</label>
+              <p-password inputId="signup-password" formControlName="password" [toggleMask]="true" />
+              <small class="error-msg" *ngIf="hasError('password', 'required', true)">Senha é obrigatória.</small>
+              <small class="error-msg" *ngIf="hasError('password', 'minlength', true)">Mínimo 6 caracteres.</small>
+            </div>
+
+            <div class="form-field">
+              <label for="signup-confirm">Confirmar Senha</label>
+              <p-password inputId="signup-confirm" formControlName="confirmPassword"
+                          [feedback]="false" [toggleMask]="true" />
+              <small class="error-msg" *ngIf="hasError('confirmPassword', 'required', true)">Confirmação obrigatória.</small>
+            </div>
+
+            <small class="error-msg" *ngIf="errorMessage && !invalidCredentials">{{ errorMessage }}</small>
+            <small class="success-msg" *ngIf="successMessage">{{ successMessage }}</small>
+
+            <p-button type="submit" [label]="isLoading ? 'Aguarde...' : 'Cadastrar'"
+                      [loading]="isLoading" styleClass="w-full"></p-button>
+          </form>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </p-card>
+</div>

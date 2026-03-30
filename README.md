@@ -1,59 +1,155 @@
-# BankClientManagerV2
+# Bank Client Manager v2
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+Sistema de gerenciamento de clientes bancarios com arquitetura de micro frontends usando Angular + Native Federation.
 
-## Development server
+## Visao Geral
 
-To start a local development server, run:
+Este repositorio contem a versao atual do projeto em `bank-client-manager-v2`.
 
-```bash
-ng serve
+- Shell de autenticacao e orquestracao dos MFEs
+- MFE de consulta de clientes
+- MFE de gerenciamento (criar, editar, excluir)
+- Mock API local em Node.js/Express
+
+No workspace tambem existe uma pasta legado chamada `bank-client-manager`, mas o fluxo principal de desenvolvimento esta em `bank-client-manager-v2`.
+
+## Arquitetura Atual
+
+```
+Shell (4200)
+  |- carrega MFE Consulta (4201) -> exposto como ./ClientList
+  |- carrega MFE Gerenciamento (4202) -> exposto como ./ClientManagementPage
+  '- integra com Mock API (3000)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Estrutura do Projeto (v2)
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+bank-client-manager-v2/
+├── angular.json
+├── package.json
+└── projects/
+    ├── shell/
+    ├── mfe-clientes/
+    ├── mfe-gerenciamento/
+    └── mock-api/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Stack Tecnica
+
+- Angular 21
+- Native Federation (`@angular-architects/native-federation`)
+- PrimeNG 21 + PrimeIcons + tema Aura (`@primeuix/themes`)
+- RxJS
+- ngx-mask
+- Node.js + Express (mock-api)
+
+## Aplicacoes e Portas
+
+1. Shell
+- Caminho: `projects/shell`
+- Porta: `4200`
+- Responsavel por login, layout e carregamento dinamico dos MFEs
+
+2. MFE Clientes (Consulta)
+- Caminho: `projects/mfe-clientes`
+- Porta: `4201`
+- Expose federation: `./ClientList`
+
+3. MFE Gerenciamento
+- Caminho: `projects/mfe-gerenciamento`
+- Porta: `4202`
+- Expose federation: `./ClientManagementPage`
+
+4. Mock API
+- Caminho: `projects/mock-api`
+- Porta: `3000`
+- Endpoint base: `http://localhost:3000/api/clients`
+
+## Scripts Principais
+
+Na raiz `bank-client-manager-v2/`:
 
 ```bash
-ng generate --help
+npm run start                 # ng serve shell
+npm run start:shell           # shell (4200)
+npm run start:mfe-clientes    # mfe-clientes (4201)
+npm run start:mfe-gerenciamento # mfe-gerenciamento (4202)
 ```
 
-## Building
-
-To build the project run:
+No `projects/mock-api/`:
 
 ```bash
-ng build
+npm run start                 # nodemon ./app/server.js
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Quick Start
 
-## Running unit tests
+### Pre-requisitos
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- Node.js 18+
+- npm 9+
+
+### Instalacao
 
 ```bash
-ng test
+# 1) Instalar dependencias do workspace Angular
+cd bank-client-manager-v2
+npm install
+
+# 2) Instalar dependencias da mock-api
+cd projects/mock-api
+npm install
 ```
 
-## Running end-to-end tests
+### Executar em Desenvolvimento
 
-For end-to-end (e2e) testing, run:
+Use 4 terminais:
 
 ```bash
-ng e2e
+# Terminal 1 - Mock API
+cd bank-client-manager-v2/projects/mock-api
+npm run start
+
+# Terminal 2 - MFE Consulta
+cd bank-client-manager-v2
+npm run start:mfe-clientes
+
+# Terminal 3 - MFE Gerenciamento
+cd bank-client-manager-v2
+npm run start:mfe-gerenciamento
+
+# Terminal 4 - Shell
+cd bank-client-manager-v2
+npm run start:shell
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Abrir: `http://localhost:4200`
 
-## Additional Resources
+## Endpoints da Mock API
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `GET /api/clients`
+- `GET /api/clients/:id`
+- `POST /api/clients`
+- `PUT /api/clients/:id`
+- `DELETE /api/clients/:id`
+
+## Build
+
+```bash
+cd bank-client-manager-v2
+
+# builds individuais
+npx ng build shell
+npx ng build mfe-clientes
+npx ng build mfe-gerenciamento
+```
+
+## Comunicacao entre Shell e MFEs
+
+- O Shell carrega os componentes remotos via `MicroFrontendService`.
+- Acoes de navegacao de cliente (create/edit/delete/query) sao propagadas por evento global `client-management-action`.
+
+## Licenca
+
+ISC

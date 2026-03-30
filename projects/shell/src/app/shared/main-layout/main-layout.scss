@@ -1,0 +1,97 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 100%);
+  color: #e2e8f0;
+  padding: 24px 18px;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 3px 0 20px rgba(15, 23, 42, 0.15);
+}
+
+.brand {
+  margin-bottom: 26px;
+}
+
+.brand h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.brand p {
+  margin-top: 4px;
+  font-size: 0.84rem;
+  color: #94a3b8;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+::ng-deep .nav-btn.p-button {
+  width: 100%;
+  justify-content: flex-start;
+  color: #f8fafc !important;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 12px 14px;
+}
+
+::ng-deep .nav-btn.p-button:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+::ng-deep .nav-btn.active-screen.p-button {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+::ng-deep .logout-btn.p-button {
+  margin-top: 14px;
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  background: #18181b;
+}
+
+.content > div {
+  width: 100%;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  min-height: 92vh;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 980px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .content > div {
+    min-height: auto;
+  }
+}

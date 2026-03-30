@@ -1,0 +1,146 @@
+.client-management-page {
+  padding: 24px;
+  max-width: 900px;
+  color: #e5e7eb;
+}
+
+.page-header {
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #f8fafc;
+  }
+
+  p {
+    margin: 0;
+    color: #cbd5e1;
+  }
+}
+
+.client-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+
+  input.p-inputtext,
+  ::ng-deep .p-select {
+    width: 100%;
+  }
+}
+
+::ng-deep .form-field .p-inputtext,
+::ng-deep .form-field .p-select,
+::ng-deep .form-field .p-select-label,
+::ng-deep .form-field .p-select-dropdown {
+  background: #0f172a;
+  color: #f8fafc;
+  border-color: rgba(148, 163, 184, 0.28);
+}
+
+::ng-deep .form-field .p-inputtext::placeholder,
+::ng-deep .form-field .p-select-label.p-placeholder {
+  color: #94a3b8;
+}
+
+::ng-deep .form-field .p-inputtext:enabled:focus,
+::ng-deep .form-field .p-select.p-focus {
+  border-color: #34d399;
+  box-shadow: 0 0 0 0.2rem rgba(52, 211, 153, 0.16);
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 12px;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+::ng-deep .form-actions .p-button {
+  min-width: 148px;
+  justify-content: center;
+}
+
+::ng-deep .form-actions .p-button .p-button-label {
+  flex: 0 1 auto;
+}
+
+.state-box {
+  padding: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 12px;
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.delete-mode .alert-box {
+  background: linear-gradient(135deg, #332701, #4a3103);
+  border: 1px solid rgba(250, 204, 21, 0.5);
+  padding: 16px;
+  border-radius: 10px;
+  color: #fde68a;
+  margin-bottom: 16px;
+}
+
+.delete-mode .client-info {
+  background: #111827;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 24px;
+  color: #e5e7eb;
+}
+
+.delete-mode .client-info p {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+.delete-mode .client-info strong {
+  color: #f8fafc;
+}
+
+.delete-mode .client-info p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .client-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  ::ng-deep .form-actions .p-button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+
+

@@ -1,0 +1,149 @@
+<section class="client-management-page">
+  <p-toast></p-toast>
+
+  <div class="page-header">
+    <h1>{{ pageTitle }}</h1>
+    <p>{{ pageDescription }}</p>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="loading" class="state-box">
+    <p>Carregando cliente...</p>
+  </div>
+
+  <!-- Create / Edit form -->
+  <div *ngIf="!loading && mode !== 'delete'">
+    <form [formGroup]="form" class="client-form" (ngSubmit)="submit()">
+      <div class="form-field">
+        <label for="companyName">Razão Social</label>
+        <input
+          pInputText
+          id="companyName"
+          type="text"
+          formControlName="companyName"
+          [ngClass]="{ 'ng-invalid ng-dirty': hasError('companyName', 'required') }"
+        />
+        <small class="error-message" *ngIf="hasError('companyName', 'required')">Campo obrigatório.</small>
+      </div>
+
+      <div class="form-field">
+        <label for="tradeName">Nome Fantasia</label>
+        <input
+          pInputText
+          id="tradeName"
+          type="text"
+          formControlName="tradeName"
+          [ngClass]="{ 'ng-invalid ng-dirty': hasError('tradeName', 'required') }"
+        />
+        <small class="error-message" *ngIf="hasError('tradeName', 'required')">Campo obrigatório.</small>
+      </div>
+
+      <div class="form-field">
+        <label for="cnpj">CNPJ</label>
+        <input
+          pInputText
+          id="cnpj"
+          type="text"
+          formControlName="cnpj"
+          mask="00.000.000/0000-00"
+          placeholder="00.000.000/0000-00"
+          [ngClass]="{ 'ng-invalid ng-dirty': hasError('cnpj', 'required') }"
+        />
+        <small class="error-message" *ngIf="hasError('cnpj', 'required')">Campo obrigatório.</small>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          pInputText
+          id="email"
+          type="email"
+          formControlName="email"
+          [ngClass]="{ 'ng-invalid ng-dirty': hasError('email', 'required') || hasError('email', 'email') }"
+        />
+        <small class="error-message" *ngIf="hasError('email', 'required')">Campo obrigatório.</small>
+        <small class="error-message" *ngIf="hasError('email', 'email')">Email inválido.</small>
+      </div>
+
+      <div class="form-field">
+        <label for="phone">Telefone</label>
+        <input
+          pInputText
+          id="phone"
+          type="tel"
+          formControlName="phone"
+          mask="(00) 00000-0000"
+          placeholder="(99) 99999-9999"
+          [ngClass]="{ 'ng-invalid ng-dirty': hasError('phone', 'required') }"
+        />
+        <small class="error-message" *ngIf="hasError('phone', 'required')">Campo obrigatório.</small>
+      </div>
+
+      <div class="form-field">
+        <label for="status">Status</label>
+        <p-select
+          inputId="status"
+          formControlName="status"
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full"
+        ></p-select>
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Cancelar"
+          severity="secondary"
+          type="button"
+          [disabled]="submitting"
+          (onClick)="cancel()"
+        ></p-button>
+        <p-button
+          [label]="submitting ? 'Salvando...' : primaryButtonLabel"
+          type="submit"
+          [loading]="submitting"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Delete confirmation -->
+  <div *ngIf="!loading && mode === 'delete'" class="delete-mode">
+    <div *ngIf="client" class="delete-box">
+      <div class="alert-box">
+        <p><strong>Atenção:</strong> a exclusão é permanente e não pode ser desfeita.</p>
+      </div>
+
+      <div class="client-info">
+        <p><strong>Razão Social:</strong> {{ client.companyName }}</p>
+        <p><strong>Nome Fantasia:</strong> {{ client.tradeName }}</p>
+        <p><strong>CNPJ:</strong> {{ client.cnpj }}</p>
+        <p><strong>Email:</strong> {{ client.email }}</p>
+        <p><strong>Telefone:</strong> {{ client.phone }}</p>
+        <p><strong>Status:</strong> {{ client.status }}</p>
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Cancelar"
+          severity="secondary"
+          type="button"
+          [disabled]="submitting"
+          (onClick)="cancel()"
+        ></p-button>
+        <p-button
+          [label]="submitting ? 'Excluindo...' : primaryButtonLabel"
+          severity="danger"
+          type="button"
+          [loading]="submitting"
+          (onClick)="confirmDelete()"
+        ></p-button>
+      </div>
+    </div>
+
+    <div *ngIf="!client" class="state-box">
+      <p>Cliente não encontrado para exclusão.</p>
+    </div>
+  </div>
+</section>

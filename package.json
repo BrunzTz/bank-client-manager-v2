@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve shell",
+    "start:shell": "ng serve shell",
+    "start:mfe-clientes": "ng serve mfe-clientes",
+    "start:mfe-gerenciamento": "ng serve mfe-gerenciamento",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -11,19 +14,32 @@
   "private": true,
   "packageManager": "npm@11.11.0",
   "dependencies": {
+    "@angular-architects/native-federation": "^21.2.3",
+    "@angular/animations": "^21.2.0",
     "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
     "@angular/core": "^21.2.0",
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "@primeuix/themes": "^2.0.3",
+    "@softarc/native-federation-node": "^3.3.4",
+    "es-module-shims": "^1.5.12",
+    "ngx-mask": "^21.0.1",
+    "primeicons": "^7.0.0",
+    "primeng": "^21.1.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^21.2.5",
+    "@angular/build": "^21.2.5",
     "@angular/cli": "^21.2.5",
     "@angular/compiler-cli": "^21.2.0",
+    "@oxc-parser/binding-win32-x64-msvc": "^0.121.0",
+    "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
   }
 }
