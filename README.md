@@ -83,6 +83,35 @@ No `projects/mock-api/`:
 npm run start                 # nodemon ./app/server.js
 ```
 
+## Testes (Jest)
+
+Na raiz `bank-client-manager-v2/`:
+
+```bash
+# executa todos os testes unitarios
+npm test
+
+# modo watch
+npm run test:watch
+
+# gera relatorio de cobertura
+npm run test:coverage
+
+# runner nativo do Angular (alternativo)
+npm run test:ng
+```
+
+### Relatorio de Cobertura
+
+Depois de rodar `npm run test:coverage`, abra:
+
+- `coverage/lcov-report/index.html`
+
+Arquivos uteis para integracao com CI:
+
+- `coverage/lcov.info`
+- `coverage/coverage-final.json`
+
 ## Quick Start
 
 ### Pre-requisitos
